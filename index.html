@@ -363,7 +363,7 @@
   <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
 </button>
 
-<audio id="music" src="musica.mp3" preload="auto" loop></audio>
+<audio id="music" src="musica.mp3" preload="auto"></audio>
 
 <script>
 (() => {
@@ -385,7 +385,7 @@
   });
 
   function fadeIn() {
-    const t0 = performance.now(), dur = 3000;
+    const t0 = performance.now(), dur = 1500;
     const step = (t) => {
       const k = Math.min(1, (t - t0) / dur);
       try { music.volume = MUSIC_VOLUME * k * k; } catch (e) {}
@@ -399,8 +399,15 @@
     const p = music.play();
     if (p && p.then) p.then(() => { sound.hidden = false; fadeIn(); }).catch(() => {});
   }
+  // A música tem ~30s e termina com fade; no fim o botão vira "tocar de novo".
+  music.addEventListener("ended", () => {
+    userMuted = true;
+    sound.classList.add("muted");
+    sound.setAttribute("aria-label", "Tocar a música de novo");
+  });
   sound.addEventListener("click", () => {
     userMuted = !userMuted;
+    if (!userMuted && music.ended) music.currentTime = 0;
     if (userMuted) music.pause(); else { music.volume = MUSIC_VOLUME; music.play().catch(() => {}); }
     sound.classList.toggle("muted", userMuted);
     sound.setAttribute("aria-label", userMuted ? "Ligar a música" : "Desligar a música");
