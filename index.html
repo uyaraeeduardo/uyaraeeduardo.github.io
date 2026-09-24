@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#24180f">
+<meta name="theme-color" content="#eee3d0">
 <title>Convocação · Uyara &amp; Eduardo</title>
 <meta name="description" content="Vocês estão oficialmente convocados para uma noite preparada por nós.">
 <meta property="og:type" content="website">
@@ -21,7 +21,8 @@
 <style>
   :root {
     color-scheme: light;
-    --ground: #24180f;
+    --ground: #eee3d0;
+    --ink-brown: #6e3f22;
     --ivory: #f4ebdb;
     --ivory-deep: #e9dcc3;
     --copper: #a8643a;
@@ -38,26 +39,22 @@
   body {
     margin: 0;
     background: var(--ground);
-    color: var(--ink-light);
+    color: var(--ink-brown);
     font-family: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
     overflow: hidden;
     -webkit-tap-highlight-color: transparent;
   }
 
   /* Mesa de madeira desfocada, tirada do próprio convite */
+  /* Fundo bege claro com leve textura de papel */
   .bg {
-    position: fixed; inset: -60px;
-    background: url("convite-v2.jpg") center / cover no-repeat;
-    filter: blur(34px) saturate(1.1) brightness(.62);
-    transform: scale(1.15);
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at 50% 42%, #f7f0e4 0%, #eee3d0 55%, #dfcfb4 100%);
     z-index: 0;
   }
   .bg::after {
     content: ""; position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 50% 45%, transparent 25%, rgba(18, 9, 3, .6) 100%),
-      linear-gradient(160deg, rgba(122, 66, 30, .55), rgba(70, 36, 14, .6));
-    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .36 0 0 0 0 .25 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   /* ---------- Cena do envelope ---------- */
@@ -73,8 +70,7 @@
     font-family: "Pinyon Script", "Snell Roundhand", cursive;
     font-size: clamp(30px, 9vw, 42px);
     font-weight: 400;
-    color: var(--ink-light);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+    color: var(--ink-brown);
     transition: opacity .6s ease, transform .6s ease;
   }
   .hint {
@@ -82,8 +78,8 @@
     font-style: italic;
     font-size: clamp(17px, 4.6vw, 20px);
     letter-spacing: .04em;
-    color: var(--ink-light);
-    opacity: .85;
+    color: #7d573c;
+    opacity: .9;
     animation: breathe 2.8s ease-in-out infinite;
     transition: opacity .5s ease;
   }
@@ -103,7 +99,7 @@
   .env-back {
     position: absolute; inset: 0; z-index: 1;
     border-radius: 3px;
-    box-shadow: 0 22px 40px -12px rgba(0, 0, 0, .6), 0 4px 10px rgba(0, 0, 0, .25);
+    box-shadow: 0 22px 40px -14px rgba(90, 60, 30, .45), 0 3px 8px rgba(90, 60, 30, .18);
     overflow: hidden;
   }
   .env-back svg, .env-pocket, .flap svg { display: block; width: 100%; height: 100%; }
@@ -157,7 +153,7 @@
     border-radius: 50%;
     animation: pulse 2.8s ease-in-out infinite;
   }
-  .seal:focus-visible { outline: 2px solid var(--ink-light); outline-offset: 6px; }
+  .seal:focus-visible { outline: 2px solid var(--ink-brown); outline-offset: 6px; }
   @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.045); } }
 
   .half {
@@ -216,7 +212,7 @@
     aspect-ratio: 9 / 16;
     height: auto;
     border-radius: 2px;
-    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7), 0 6px 18px rgba(0, 0, 0, .3);
+    box-shadow: 0 30px 60px -22px rgba(90, 60, 30, .55), 0 6px 18px rgba(90, 60, 30, .2);
     transform-origin: 0 0;
   }
   #petals {
