@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#24180f">
+<title>Convocação · Uyara &amp; Eduardo</title>
+<meta name="description" content="Vocês estão oficialmente convocados para uma noite preparada por nós.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://uyaraeeduardo.github.io/">
+<meta property="og:title" content="Convocação · Uyara &amp; Eduardo">
+<meta property="og:description" content="Vocês estão oficialmente convocados para uma noite preparada por nós.">
+<meta property="og:image" content="https://uyaraeeduardo.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23b8381a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Pinyon+Script&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #24180f;
+    --ivory: #f4ebdb;
+    --ivory-deep: #e9dcc3;
+    --copper: #a8643a;
+    --wax: #b8381a;
+    --wax-hi: #ee7442;
+    --wax-lo: #6e1606;
+    --liner: #33472f;
+    --ink-light: #f1e6d2;
+    --w: min(76vw, 380px);
+    --h: calc(var(--w) * 0.66);
+  }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink-light);
+    font-family: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Mesa de madeira desfocada, tirada do próprio convite */
+  .bg {
+    position: fixed; inset: -60px;
+    background: url("convite-v2.jpg") center / cover no-repeat;
+    filter: blur(34px) saturate(1.1) brightness(.62);
+    transform: scale(1.15);
+    z-index: 0;
+  }
+  .bg::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 45%, transparent 25%, rgba(18, 9, 3, .6) 100%),
+      linear-gradient(160deg, rgba(122, 66, 30, .55), rgba(70, 36, 14, .6));
+    mix-blend-mode: multiply;
+  }
+
+  /* ---------- Cena do envelope ---------- */
+  #scene {
+    position: fixed; inset: 0; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: calc(var(--w) * 0.12);
+    padding-inline: 16px;
+    transition: opacity .9s ease;
+  }
+  .from {
+    margin: 0;
+    font-family: "Pinyon Script", "Snell Roundhand", cursive;
+    font-size: clamp(30px, 9vw, 42px);
+    font-weight: 400;
+    color: var(--ink-light);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .hint {
+    margin: 0;
+    font-style: italic;
+    font-size: clamp(17px, 4.6vw, 20px);
+    letter-spacing: .04em;
+    color: var(--ink-light);
+    opacity: .85;
+    animation: breathe 2.8s ease-in-out infinite;
+    transition: opacity .5s ease;
+  }
+  @keyframes breathe { 50% { opacity: .45; } }
+  .opening .from, .opening .hint { opacity: 0; animation: none; }
+  .opening .from { transform: translateY(-10px); }
+
+  .env {
+    position: relative;
+    width: var(--w); height: var(--h);
+    perspective: calc(var(--w) * 3);
+    transition: transform 1.1s cubic-bezier(.3, .1, .2, 1), opacity .9s ease;
+  }
+  .lift .env { transform: translateY(calc(var(--w) * 0.24)); }
+  .gone .env { transform: translateY(80vh); opacity: 0; transition: transform 1.1s cubic-bezier(.55, 0, .75, .2), opacity 1s ease; }
+
+  .env-back {
+    position: absolute; inset: 0; z-index: 1;
+    border-radius: 3px;
+    box-shadow: 0 22px 40px -12px rgba(0, 0, 0, .6), 0 4px 10px rgba(0, 0, 0, .25);
+    overflow: hidden;
+  }
+  .env-back svg, .env-pocket, .flap svg { display: block; width: 100%; height: 100%; }
+
+  .card-holder {
+    position: absolute; z-index: 2;
+    left: 6%; width: 88%;
+    bottom: 0; height: calc(var(--w) * 3);
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .card {
+    position: absolute; left: 0; width: 100%; max-width: none;
+    aspect-ratio: 9 / 16;
+    top: calc(var(--w) * 3 - var(--h) + var(--w) * 0.05);
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, .18);
+    transition: transform 1.1s cubic-bezier(.3, .1, .2, 1);
+  }
+  .lift .card { transform: translateY(calc(var(--w) * -0.8)); }
+
+  .env-pocket { position: absolute; inset: 0; z-index: 3; }
+  .flores {
+    position: absolute; height: auto; max-width: none;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 8px rgba(25, 14, 4, .35));
+    transition: opacity .6s ease, transform .8s ease;
+  }
+  .flores.tl { z-index: 6; width: 62%; left: -13%; top: -17%; }
+  .flores.br { z-index: 3; width: 54%; right: -11%; bottom: -19%; }
+  .opening .flores.tl { opacity: 0; transform: translate(-6%, -6%); }
+
+  .flap {
+    position: absolute; inset: 0; z-index: 4;
+    transform-origin: 50% 0;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: transform .95s cubic-bezier(.45, .05, .25, 1);
+    pointer-events: none;
+  }
+  .flap.open { transform: rotateX(180deg); }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .face.inside { transform: rotateY(180deg); }
+
+  /* ---------- Selo de cera ---------- */
+  .seal {
+    position: absolute; z-index: 5;
+    left: 50%; top: 56.5%;
+    width: calc(var(--w) * 0.25); aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 0; padding: 0; background: none; cursor: pointer;
+    border-radius: 50%;
+    animation: pulse 2.8s ease-in-out infinite;
+  }
+  .seal:focus-visible { outline: 2px solid var(--ink-light); outline-offset: 6px; }
+  .seal::before { /* brilho que chama o toque */
+    content: ""; position: absolute; inset: -14%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 170, 120, .45), rgba(255, 170, 120, 0) 65%);
+    animation: glow 2.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.045); } }
+  @keyframes glow { 50% { opacity: .2; transform: scale(1.12); } }
+
+  .half {
+    position: absolute; inset: 0;
+    transition: transform .6s cubic-bezier(.4, 0, .6, 1), opacity .6s ease;
+  }
+  .half.l { clip-path: polygon(0 0, 52% 0, 46% 18%, 55% 34%, 47% 52%, 56% 70%, 49% 86%, 53% 100%, 0 100%); }
+  .broken .half.r { clip-path: polygon(52% 0, 100% 0, 100% 100%, 53% 100%, 49% 86%, 56% 70%, 47% 52%, 55% 34%, 46% 18%); }
+  .wax {
+    position: absolute; inset: 0;
+    border-radius: 48% 52% 50% 50% / 52% 47% 53% 48%;
+    background:
+      radial-gradient(circle at 30% 24%, rgba(255, 236, 214, .75) 0%, rgba(255, 236, 214, 0) 13%),
+      radial-gradient(circle at 36% 30%, var(--wax-hi) 0%, rgba(238, 116, 66, 0) 48%),
+      radial-gradient(circle at 50% 55%, var(--wax) 58%, var(--wax-lo) 100%);
+    box-shadow:
+      0 6px 14px rgba(40, 6, 0, .5),
+      0 1px 2px rgba(40, 6, 0, .4),
+      inset 0 -4px 7px rgba(60, 8, 0, .45),
+      inset 0 3px 4px rgba(255, 190, 150, .45);
+  }
+  .wax::before { /* anel prensado */
+    content: ""; position: absolute; inset: 15%;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 2px 3px rgba(70, 8, 0, .6),
+      inset 0 -1px 2px rgba(255, 170, 120, .45),
+      0 1px 1px rgba(255, 180, 130, .5);
+  }
+  .mono {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: "Pinyon Script", "Snell Roundhand", cursive;
+    font-size: calc(var(--w) * 0.1);
+    line-height: 1;
+    padding-top: 7%;
+    color: #d45a30;
+    text-shadow: 0 -1px 0 rgba(255, 200, 160, .75), 0 1.5px 1px rgba(70, 8, 0, .75);
+    white-space: nowrap;
+  }
+  .broken .seal { animation: none; cursor: default; }
+  .broken .seal::before { opacity: 0; animation: none; }
+  .broken .half.l { transform: translate(-38%, 40%) rotate(-28deg); opacity: 0; }
+  .broken .half.r { transform: translate(38%, 46%) rotate(24deg); opacity: 0; }
+
+  /* ---------- Convite aberto ---------- */
+  #view {
+    position: fixed; inset: 0; z-index: 2;
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    display: flex; flex-direction: column;
+    padding: 16px;
+  }
+  #full {
+    display: block;
+    margin: auto;
+    width: min(100%, 480px, calc((100vh - 32px) * 9 / 16));
+    width: min(100%, 480px, calc((100dvh - 32px) * 9 / 16));
+    max-width: 100%;
+    aspect-ratio: 9 / 16;
+    height: auto;
+    border-radius: 2px;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7), 0 6px 18px rgba(0, 0, 0, .3);
+    transform-origin: 0 0;
+  }
+  #petals {
+    position: fixed; inset: 0; z-index: 3;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  #sound {
+    position: fixed; z-index: 4;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: 46px; height: 46px;
+    display: grid; place-items: center;
+    border: 1px solid rgba(244, 235, 219, .45);
+    border-radius: 50%;
+    background: rgba(36, 24, 15, .45);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    color: var(--ink-light);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .8s ease;
+  }
+  #sound.show { opacity: 1; }
+  #sound:focus-visible { outline: 2px solid var(--ink-light); outline-offset: 3px; }
+  #sound svg { width: 22px; height: 22px; }
+  #sound .off, #sound.muted .on { display: none; }
+  #sound.muted .off { display: block; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hint, .seal, .seal::before { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="bg" aria-hidden="true"></div>
+
+<main id="scene">
+  <p class="from">Uyara &amp; Eduardo</p>
+
+  <div class="env" id="env">
+    <!-- Forro verde do envelope -->
+    <div class="env-back">
+      <svg viewBox="0 0 400 264" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <pattern id="linerPat" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="14" height="14" fill="#33472f"/>
+            <line x1="0" y1="0" x2="0" y2="14" stroke="#3d5438" stroke-width="3"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="264" fill="url(#linerPat)"/>
+        <rect x="8" y="8" width="384" height="248" fill="none" stroke="#b98a55" stroke-opacity=".5" stroke-width=".8"/>
+      </svg>
+    </div>
+
+    <div class="card-holder" aria-hidden="true">
+      <img class="card" id="card" src="convite-v2.jpg" alt="">
+    </div>
+
+    <!-- Bolso: abas laterais e aba de baixo -->
+    <svg class="env-pocket" viewBox="0 0 400 264" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" stitchTiles="stitch"/>
+          <feColorMatrix values="0 0 0 0 .42  0 0 0 0 .34  0 0 0 0 .24  0 0 0 .10 0"/>
+        </filter>
+        <filter id="foldShadow" x="-10%" y="-20%" width="120%" height="140%">
+          <feDropShadow dx="0" dy="-1.5" stdDeviation="2" flood-color="#5a3f22" flood-opacity=".22"/>
+        </filter>
+        <linearGradient id="sideL" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stop-color="#efe4cf"/><stop offset="1" stop-color="#e6d8bd"/>
+        </linearGradient>
+        <linearGradient id="sideR" x1="1" x2="0" y1="0" y2="0">
+          <stop offset="0" stop-color="#efe4cf"/><stop offset="1" stop-color="#e6d8bd"/>
+        </linearGradient>
+        <linearGradient id="bottomG" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#f1e7d5"/><stop offset="1" stop-color="#f6eee0"/>
+        </linearGradient>
+        <clipPath id="pocketClip">
+          <path d="M0,0 L190,142 L200,146 L210,142 L400,0 L400,264 L0,264 Z"/>
+        </clipPath>
+      </defs>
+      <path d="M0,0 L190,142 Q200,149 196,156 L0,264 Z" fill="url(#sideL)"/>
+      <path d="M400,0 L210,142 Q200,149 204,156 L400,264 Z" fill="url(#sideR)"/>
+      <path d="M0,264 L186,130 Q200,120 214,130 L400,264 Z" fill="url(#bottomG)" filter="url(#foldShadow)"/>
+      <g clip-path="url(#pocketClip)"><rect width="400" height="264" filter="url(#paperNoise)"/></g>
+      <path d="M7,10 V257 H393 V10" fill="none" stroke="#a8643a" stroke-opacity=".55" stroke-width=".8"/>
+    </svg>
+
+    <img class="flores br" src="flores-br.webp" alt="">
+
+    <!-- Aba superior -->
+    <div class="flap" id="flap">
+      <div class="face">
+        <svg viewBox="0 0 400 264" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="flapG" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#f6eee0"/><stop offset=".6" stop-color="#efe4d0"/>
+            </linearGradient>
+            <filter id="flapShadow" x="-5%" y="-5%" width="110%" height="130%">
+              <feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#3b2712" flood-opacity=".28"/>
+            </filter>
+            <clipPath id="flapClip"><path d="M0,0 H400 L216,150 Q200,163 184,150 Z"/></clipPath>
+          </defs>
+          <path d="M0,0 H400 L216,150 Q200,163 184,150 Z" fill="url(#flapG)" filter="url(#flapShadow)"/>
+          <g clip-path="url(#flapClip)"><rect width="400" height="170" filter="url(#paperNoise)"/></g>
+          <path d="M14,6 L200,149 L386,6" fill="none" stroke="#a8643a" stroke-opacity=".5" stroke-width=".8"/>
+        </svg>
+      </div>
+      <div class="face inside">
+        <svg viewBox="0 0 400 264" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,0 H400 L216,150 Q200,163 184,150 Z" fill="url(#linerPat)"/>
+          <path d="M14,6 L200,149 L386,6" fill="none" stroke="#b98a55" stroke-opacity=".5" stroke-width=".8"/>
+        </svg>
+      </div>
+    </div>
+
+    <img class="flores tl" src="flores-tl.webp" alt="">
+
+    <button class="seal" id="seal" type="button" aria-label="Abrir o convite">
+      <span class="half r"><span class="wax"></span><span class="mono">U&amp;E</span></span>
+      <span class="half l"><span class="wax"></span><span class="mono">U&amp;E</span></span>
+    </button>
+  </div>
+
+  <p class="hint">Toque no selo para abrir</p>
+</main>
+
+<section id="view" hidden>
+  <img id="full" src="convite-v2.jpg" alt="Convocação: há momentos em que um simples convite não é suficiente. E existem pessoas cuja presença não é apenas desejada, é indispensável. Por isso, vocês estão oficialmente convocados para uma noite preparada por nós. Quarta-feira, dia 30, às 19h30, no Barão Bar. Serão 12 casais reunidos à mesa, por um motivo que, por enquanto, permanecerá em segredo. Não perguntem. Não tentem descobrir. Apenas estejam presentes. A presença de vocês faz parte do plano. O restante será revelado na hora. Uyara & Eduardo.">
+</section>
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<button id="sound" type="button" aria-label="Desligar a música" hidden>
+  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></svg>
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+</button>
+
+<audio id="music" src="musica.mp3" preload="auto" loop></audio>
+
+<script>
+(() => {
+  const MUSIC_START = 0;      // segundo em que a música começa
+  const MUSIC_VOLUME = 0.85;
+
+  const $ = (id) => document.getElementById(id);
+  const scene = $("scene"), env = $("env"), flap = $("flap"), seal = $("seal"),
+        card = $("card"), view = $("view"), full = $("full"),
+        music = $("music"), sound = $("sound"), canvas = $("petals");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const wait = (ms) => new Promise((r) => setTimeout(r, reduced ? Math.min(ms, 150) : ms));
+
+  /* ---------- Música ---------- */
+  let audioOk = true, userMuted = false, pausedByHide = false;
+  music.addEventListener("error", () => { audioOk = false; sound.hidden = true; });
+  music.addEventListener("loadedmetadata", () => {
+    if (music.paused && MUSIC_START) try { music.currentTime = MUSIC_START; } catch (e) {}
+  });
+
+  function fadeIn() {
+    const t0 = performance.now(), dur = 3000;
+    const step = (t) => {
+      const k = Math.min(1, (t - t0) / dur);
+      try { music.volume = MUSIC_VOLUME * k * k; } catch (e) {}
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  function startMusic() {
+    if (!audioOk) return;
+    try { if (MUSIC_START) music.currentTime = MUSIC_START; music.volume = 0; } catch (e) {}
+    const p = music.play();
+    if (p && p.then) p.then(() => { sound.hidden = false; fadeIn(); }).catch(() => {});
+  }
+  sound.addEventListener("click", () => {
+    userMuted = !userMuted;
+    if (userMuted) music.pause(); else { music.volume = MUSIC_VOLUME; music.play().catch(() => {}); }
+    sound.classList.toggle("muted", userMuted);
+    sound.setAttribute("aria-label", userMuted ? "Ligar a música" : "Desligar a música");
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && !music.paused) { music.pause(); pausedByHide = true; }
+    else if (!document.hidden && pausedByHide && !userMuted) { pausedByHide = false; music.play().catch(() => {}); }
+  });
+
+  /* ---------- Abertura ---------- */
+  let opened = false;
+  seal.addEventListener("click", async () => {
+    if (opened) return;
+    opened = true;
+    startMusic();
+    try { await full.decode(); } catch (e) {}
+
+    scene.classList.add("opening", "broken");
+    await wait(550);
+    flap.classList.add("open");
+    setTimeout(() => { flap.style.zIndex = 0; }, reduced ? 0 : 470);
+    await wait(950);
+    scene.classList.add("lift");
+    await wait(1150);
+    flyOut();
+  });
+
+  function flyOut() {
+    view.hidden = false;
+    const f = full.getBoundingClientRect();
+    const c = card.getBoundingClientRect();
+    const e = env.getBoundingClientRect();
+    const visibleBottom = e.top + e.height * 0.45;          // até onde o convite aparece fora do bolso
+    const hidden = Math.max(0, Math.min(1, (c.bottom - visibleBottom) / c.height));
+    const s = c.width / f.width;
+    const dx = c.left - f.left, dy = c.top - f.top;
+
+    card.style.visibility = "hidden";
+    scene.classList.add("gone");
+    full.animate(
+      [
+        { transform: `translate(${dx}px, ${dy}px) scale(${s})`, clipPath: `inset(0 0 ${hidden * 100}% 0)` },
+        { transform: "translate(0, 0) scale(1)", clipPath: "inset(0 0 0% 0)" }
+      ],
+      { duration: reduced ? 1 : 1400, easing: "cubic-bezier(.6, 0, .2, 1)" }
+    );
+    setTimeout(() => { scene.remove(); if (audioOk) sound.classList.add("show"); }, reduced ? 50 : 1400);
+    setTimeout(startPetals, reduced ? 0 : 900);
+  }
+
+  /* ---------- Pétalas ---------- */
+  // Cada pétala é desenhada uma vez num canvas próprio e depois só reposicionada.
+  function makePetalSprite(k) {
+    const h = 44, w = h * (.74 + k * .1), hw = w / 2, pad = 4, dpr = 2;
+    const c = document.createElement("canvas");
+    c.width = (w + pad * 2) * dpr; c.height = (h + pad * 2) * dpr;
+    const g = c.getContext("2d");
+    g.scale(dpr, dpr);
+    g.translate(pad + hw, pad + h);                     // origem na base da pétala
+
+    const path = new Path2D();
+    path.moveTo(0, 0);
+    path.bezierCurveTo(-hw * .5, -h * .1, -hw * 1.02, -h * .48, -hw * .9, -h * .78);
+    path.bezierCurveTo(-hw * .78, -h * .98, -hw * .3, -h * 1.01, -hw * .04, -h * (.92 + k * .04));
+    path.bezierCurveTo(hw * .22, -h * 1.02, hw * .76, -h * .99, hw * .9, -h * .8);
+    path.bezierCurveTo(hw * 1.03, -h * .52, hw * .52, -h * .12, 0, 0);
+
+    const body = g.createRadialGradient(-hw * .15, -h * .66, h * .04, 0, -h * .5, h * .64);
+    body.addColorStop(0, "#ffffff");
+    body.addColorStop(.7, "#fefdfb");
+    body.addColorStop(1, "#ece8df");
+    g.fillStyle = body;
+    g.fill(path);
+
+    g.save();
+    g.clip(path);
+    const base = g.createLinearGradient(0, 0, 0, -h * .42);   // base creme-esverdeada
+    base.addColorStop(0, "rgba(206, 200, 150, .6)");
+    base.addColorStop(1, "rgba(206, 200, 150, 0)");
+    g.fillStyle = base;
+    g.fillRect(-hw * 1.2, -h, hw * 2.4, h);
+    const curl = g.createLinearGradient(-hw, 0, hw, 0);      // curvatura suave
+    curl.addColorStop(0, "rgba(120, 108, 88, .16)");
+    curl.addColorStop(.42, "rgba(255, 255, 255, 0)");
+    curl.addColorStop(1, "rgba(120, 108, 88, .07)");
+    g.fillStyle = curl;
+    g.fillRect(-hw * 1.2, -h, hw * 2.4, h);
+    g.strokeStyle = "rgba(176, 164, 136, .2)";               // nervuras
+    g.lineWidth = .55;
+    for (let i = -3; i <= 3; i++) {
+      g.beginPath();
+      g.moveTo(0, -h * .04);
+      g.quadraticCurveTo(hw * .16 * i, -h * .45, hw * .25 * i, -h * .9);
+      g.stroke();
+    }
+    const shine = g.createRadialGradient(hw * .25, -h * .68, 0, hw * .25, -h * .68, h * .32);
+    shine.addColorStop(0, "rgba(255, 255, 255, .95)");
+    shine.addColorStop(1, "rgba(255, 255, 255, 0)");
+    g.fillStyle = shine;
+    g.fillRect(-hw * 1.2, -h, hw * 2.4, h);
+    g.restore();
+
+    g.strokeStyle = "rgba(210, 202, 184, .6)";
+    g.lineWidth = .5;
+    g.stroke(path);
+    return { img: c, w: w + pad * 2, h: h + pad * 2 };
+  }
+
+  function startPetals() {
+    if (reduced) return;
+    const ctx = canvas.getContext("2d");
+    let W = 0, H = 0;
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = innerWidth; H = innerHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    addEventListener("resize", resize);
+
+    const sprites = [0, .3, .6, .9, .45].map(makePetalSprite);
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const make = (z, first) => ({
+      z,
+      sp: sprites[(Math.random() * sprites.length) | 0],
+      x: rnd(-20, W + 20), y: first ? rnd(-H * .7, -30) : rnd(-100, -50),
+      len: 26 + z * 22 + rnd(-3, 3),          // comprimento em px
+      vy: 20 + z * 24 + rnd(-4, 4),
+      drift: rnd(-10, 10),
+      sway: rnd(24, 52), ph: rnd(0, 6.28), fr: rnd(.45, .85),
+      base: rnd(0, 6.28), spin: rnd(-.18, .18),
+      tilt: rnd(0, 6.28), vt: rnd(.5, 1),
+      a: .88 + z * .12
+    });
+    const count = Math.round(Math.max(10, Math.min(20, W / 28)));
+    // mais perto = maior, mais rápida e desenhada por cima
+    const petals = Array.from({ length: count }, (_, i) => make(i / (count - 1), true));
+
+    let last = performance.now();
+    const loop = (t) => {
+      const dt = Math.min(.05, (t - last) / 1000);
+      last = t;
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < petals.length; i++) {
+        let p = petals[i];
+        p.ph += p.fr * dt;
+        p.tilt += p.vt * dt;
+        p.base += p.spin * dt;
+        p.x += p.drift * dt;
+        p.y += p.vy * (.75 + .5 * Math.abs(Math.cos(p.ph))) * dt;   // plana nas pontas do balanço
+        if (p.y > H + 60) { p = petals[i] = make(p.z, false); }
+
+        const x = p.x + Math.sin(p.ph) * p.sway;
+        const rot = p.base + Math.cos(p.ph) * .5;                     // inclina para o lado em que balança
+        const s = p.len / 44;
+        ctx.save();
+        ctx.translate(x, p.y);
+        ctx.rotate(rot);
+        ctx.scale(s * (.84 + .16 * Math.sin(p.tilt)), s * (.92 + .08 * Math.cos(p.tilt * .8)));
+        ctx.globalAlpha = p.a;
+        ctx.shadowColor = "rgba(40, 24, 10, .28)";
+        ctx.shadowBlur = 5 + p.z * 5;
+        ctx.shadowOffsetY = 2 + p.z * 3;
+        ctx.drawImage(p.sp.img, -p.sp.w / 2, -p.sp.h / 2, p.sp.w, p.sp.h);
+        ctx.restore();
+      }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+</body>
+</html>
